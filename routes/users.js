@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   res.render('users');
 });
 
-app.get('/login/:id', (req, res) => {
+router.get('/login/:id', (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
 
