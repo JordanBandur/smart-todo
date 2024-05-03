@@ -25,5 +25,4 @@ app.get('/login/:id', (req, res) => {
   res.redirect('/');
 });
 
-console.log("hello miguel");
 module.exports = router;
