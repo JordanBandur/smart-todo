@@ -9,8 +9,16 @@ const dbParams = {
   database: process.env.DB_NAME
 };
 
+
 const db = new Pool(dbParams);
 
-db.connect();
+// tests connection
+db.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Connection error', err.stack);
+  } else {
+    console.log('Successful database connection', res.rows[0].now); // Log the current time from DB
+  }
+});
 
 module.exports = db;
