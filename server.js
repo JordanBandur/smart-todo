@@ -1,5 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
+const taskRoutes = require('./routes/add-task'); //route add-task
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -16,6 +17,7 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   '/styles',
   sassMiddleware({
@@ -25,6 +27,7 @@ app.use(
   })
 );
 app.use(express.static('public'));
+app.use('/todos', taskRoutes);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

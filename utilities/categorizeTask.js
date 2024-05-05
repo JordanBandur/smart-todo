@@ -25,6 +25,7 @@ async function categorizeTask(taskTitle) {
   // Find the first matching keyword and its associated category name
   for (const [keyword, categoryName] of Object.entries(keywordToCategoryName)) {
     if (taskTitle.includes(keyword)) {
+
       // Query the database to find the category ID by name
       const query = "SELECT id FROM categories WHERE name = $1;";
       const result = await db.query(query, [categoryName]);
