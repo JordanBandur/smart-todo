@@ -1,6 +1,5 @@
 // load .env data into process.env
 require('dotenv').config();
-const taskRoutes = require('./routes/add-task'); //route add-task
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -27,7 +26,6 @@ app.use(
   })
 );
 app.use(express.static('public'));
-app.use('/todos', taskRoutes);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

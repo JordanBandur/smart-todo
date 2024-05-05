@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Home Page</title>
-
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
-
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/layout.css">
+    <script src="/vendor/jquery-3.0.0.js"></script>
 </head>
-
 <body>
-  <h1>Have fun! 🥔</h1>
-</body>
+    <h1>Have fun! 🥔</h1>
+    <button id="load-data">Load Data</button>
+    <div id="data-container"></div>
 
+    <script src="/scripts/app.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#load-data').on('click', function() {
+                $.ajax({
+                    url: '/api/todos',  // Make sure to adjust the URL to your API endpoint
+                    type: 'GET',
+                    success: function(data) {
+                        var content = '';
+                        data.forEach(function(item) {
+                            content += `<p>${item.title} (User ID: ${item.user_id})</p>`;
+                        });
+                        $('#data-container').html(content);
+                    },
+                    error: function() {
+                        $('#data-container').html('<p>An error has occurred</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
