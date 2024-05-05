@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
-const categorizeTask = require('../utils/categorizeTask'); // function in utilities directory which determines task category
+const categorizeTask = require('../utilities/categorizeTask'); // function in utilities directory which determines task category
 
 router.post('/', async (req, res) => {
   const { title } = req.body;
