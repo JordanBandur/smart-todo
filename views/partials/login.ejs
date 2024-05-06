@@ -1,0 +1,17 @@
+<div id="loginModal" class="modal" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <button class="close" aria-label="Close">&times;</button>
+    <form action="/login" method="post">
+      <fieldset>
+        <legend id="loginModalLabel">User Login</legend>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required aria-required="true">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required aria-required="true">
+
+        <button type="submit" class="login-button">Login</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
