@@ -1,4 +1,3 @@
-// uses google gemini for ai help
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const dotenv = require("dotenv");
 dotenv.config();

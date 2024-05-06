@@ -1,7 +1,7 @@
-<!---Hardcoded html for now, replace with proper code-->
 <section class="card">
   <h2>Movies</h2>
-  <ul>
+  <ul id="movieList">
+    <!-- Existing list items -->
     <li>Forrest Gump</li>
     <li>Friends</li>
     <li>Lost</li>
@@ -11,15 +11,17 @@
 </section>
 <section class="card">
   <h2>Books</h2>
-  <ul>
-    <li>catcher in the rye</li>
-    <li>to kill a mockingbird</li>
-    <li>lord of the flies</li>
+  <ul id="bookList">
+    <!-- Existing list items -->
+    <li>Catcher in the Rye</li>
+    <li>To Kill a Mockingbird</li>
+    <li>Lord of the Flies</li>
   </ul>
 </section>
 <section class="card">
   <h2>Restaurants</h2>
-  <ul>
+  <ul id="restaurantList">
+    <!-- Existing list items -->
     <li>Osmows</li>
     <li>Second Cup</li>
     <li>Mucho Burrito</li>
@@ -28,10 +30,54 @@
 </section>
 <section class="card">
   <h2>Products</h2>
-  <ul>
-    <li>table lamp</li>
-    <li>shampoo</li>
-    <li>soccer ball</li>
-    <li>coffee</li>
+  <ul id="productList">
+    <!-- Existing list items -->
+    <li>Table Lamp</li>
+    <li>Shampoo</li>
+    <li>Soccer Ball</li>
+    <li>Coffee</li>
   </ul>
 </section>
+
+<!-- Text input and add button -->
+<div>
+  <input type="text" id="taskInput" placeholder="Enter task...">
+  <button id="addTaskBtn">Add Task</button>
+</div>
+
+<!-- Script to handle adding new tasks -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+
+    addTaskBtn.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+      const task = taskInput.value.trim();
+      if (task !== "") {
+        const category = categorizeTask(task); // Call your categorization function here
+        const listItem = document.createElement("li");
+        listItem.textContent = task;
+        switch (category) {
+          case "Movies/Series":
+            document.getElementById("movieList").appendChild(listItem);
+            break;
+          case "Books":
+            document.getElementById("bookList").appendChild(listItem);
+            break;
+          case "Restaurants/Cafes":
+            document.getElementById("restaurantList").appendChild(listItem);
+            break;
+          case "Products":
+            document.getElementById("productList").appendChild(listItem);
+            break;
+          default:
+            // Handle default case or uncategorized tasks
+            alert("Unable to categorize task.");
+            break;
+        }
+        taskInput.value = ""; // Clear the input field after adding the task
+      }
+    });
+  });
+</script>
