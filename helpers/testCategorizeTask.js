@@ -9,7 +9,8 @@ async function testCategorizeTask() {
     "Eat at Joe's Diner",
     "Read the latest Stephen King novel",
     "Buy a new laptop",
-    "Write a report" // doesn't have a keyword, so should input it into closest resembling category
+    "Write a report", // doesn't have a keyword, so should input it into closest resembling category
+    "go to starbucks"
   ];
 
   for (const description of taskDescriptions) {

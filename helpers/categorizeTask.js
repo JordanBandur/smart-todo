@@ -43,7 +43,7 @@ async function categorizeTask(taskDescription) {
   const bookKeywords = ["read", "book", "novel", "chapter", "author", "literature"];
   const productKeywords = ["buy", "purchase", "shop", "order", "product", "item"];
 
-  // Check if any keywords from each category are included in the task description
+  // check if any keywords from each category are included in the task description
   if (movieKeywords.some(keyword => taskDescription.includes(keyword))) {
     return "Movies/Series";
   } else if (restaurantKeywords.some(keyword => taskDescription.includes(keyword))) {
@@ -53,9 +53,9 @@ async function categorizeTask(taskDescription) {
   } else if (productKeywords.some(keyword => taskDescription.includes(keyword))) {
     return "Products";
   } else {
-    // If no keywords match, use the AI model to categorize the task
+    // if no keywords match, use the AI model to help categorize the task
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const prompt = taskDescription;
+    const prompt = `Out of these four categories: Films/TV Series, Restaurants/Cafes, Books, and Products, which category would the task "${taskDescription}" most likely fall into?`;
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
@@ -66,21 +66,36 @@ async function categorizeTask(taskDescription) {
   }
 }
 
+
 // Function to extract category from the AI-generated text
 function extractCategoryFromText(text) {
-  // Example logic to extract category from text
-  // Modify this based on the actual format and content of the generated text
-  if (text.includes("movie")) {
+  text = text.toLowerCase(); // Convert text to lowercase for case-insensitive matching
+
+  // Keywords for Movies/Series
+  const movieKeywords = ["movie", "film", "series", "tv show", "cinema"];
+
+  // Keywords for Restaurants/Cafes
+  const restaurantKeywords = ["restaurant", "cafe", "diner", "eatery", "bistro", "pub"];
+
+  // Keywords for Books
+  const bookKeywords = ["book", "novel", "story", "literature", "author"];
+
+  // Keywords for Products
+  const productKeywords = ["product", "item", "purchase", "buy", "shop"];
+
+  // Check if any keywords from each category are included in the text
+  if (movieKeywords.some(keyword => text.includes(keyword))) {
     return "Movies/Series";
-  } else if (text.includes("restaurant")) {
+  } else if (restaurantKeywords.some(keyword => text.includes(keyword))) {
     return "Restaurants/Cafes";
-  } else if (text.includes("book")) {
+  } else if (bookKeywords.some(keyword => text.includes(keyword))) {
     return "Books";
-  } else if (text.includes("product")) {
+  } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
     return null; // Unable to determine category from text
   }
 }
+
 
 module.exports = categorizeTask;
