@@ -1,4 +1,4 @@
-// PG database client/connection setup
+// connection.js
 const { Pool } = require('pg');
 
 const dbParams = {
@@ -9,16 +9,14 @@ const dbParams = {
   database: process.env.DB_NAME
 };
 
+const pool = new Pool(dbParams);
 
-const db = new Pool(dbParams);
-
-// tests connection
-db.query('SELECT NOW()', (err, res) => {
+pool.query('SELECT NOW()', (err, res) => {
   if (err) {
     console.error('Connection error', err.stack);
   } else {
-    console.log('Successful database connection', res.rows[0].now); // Log the current time from DB
+    console.log('Successful database connection', res.rows[0].now);
   }
 });
 
-module.exports = db;
+module.exports = pool;
