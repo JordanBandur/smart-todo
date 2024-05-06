@@ -1,0 +1,142 @@
+// Variables for colors and common values
+$font-stack-cursive: "Dancing Script", "Permanent Marker", cursive;
+$font-stack-sans: 'Open Sans', sans-serif;
+$background-color-light: #F4F4F4;
+$text-color-main: #333;
+$background-color-header: #FFD700;
+$background-color-button: #606D5D;
+$background-color-button-hover: #4E5D4B;
+$background-color-form: #FFF8DC;
+$border-color: #ccc;
+$shadow-light: rgba(0, 0, 0, 0.05);
+$shadow-medium: rgba(0, 0, 0, 0.1);
+$transition-speed: 0.3s;
+
+// Mixin for button styles
+@mixin button-style($bg-color, $text-color) {
+  padding: 10px 20px;
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color $transition-speed ease;
+
+  &:hover {
+    background-color: lighten($bg-color, 10%);
+  }
+}
+
+/* Basic Reset */
+body, h1, h2, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, button {
+  font-family: $font-stack-cursive;
+}
+
+body {
+  font-family: $font-stack-sans;
+  background-color: $background-color-light;
+  color: $text-color-main;
+}
+
+/* Header */
+header {
+  background-color: $background-color-header;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .login-button {
+    @include button-style($background-color-button, white);
+  }
+}
+
+/* Todo form */
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: $background-color-form;
+  box-shadow: 0 2px 4px $shadow-light;
+  margin-top: 70px; // Match header's height
+  width: 100%;
+  box-sizing: border-box;
+
+  #new-todo-form {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px; // Max width for larger screens
+    gap: 10px;
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: 2px solid $border-color;
+      border-radius: 4px;
+    }
+
+    button {
+      @include button-style($background-color-button, white);
+    }
+  }
+}
+
+/* Todos */
+main.todo-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 80px 20px 20px; // Top padding to avoid overlap with the fixed header
+  box-sizing: border-box;
+
+  .card {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px $shadow-medium;
+
+    h2 {
+      margin-bottom: 20px;
+      border-bottom: 2px solid $border-color;
+      padding-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+
+      li {
+        border-bottom: 1px solid #eee;
+        padding: 8px 0;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  main.todo-container {
+    grid-template-columns: 1fr; // Stack the cards on smaller screens
+  }
+}
