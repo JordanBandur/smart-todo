@@ -39,45 +39,28 @@
   </ul>
 </section>
 
-<!-- Text input and add button -->
-<div>
-  <input type="text" id="taskInput" placeholder="Enter task...">
-  <button id="addTaskBtn">Add Task</button>
-</div>
 
-<!-- Script to handle adding new tasks -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const taskInput = document.getElementById("taskInput");
-    const addTaskBtn = document.getElementById("addTaskBtn");
+  $(document).ready(function() {
+    $('#new-todo-form').submit(function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
 
-    addTaskBtn.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent default form submission behavior
-      const task = taskInput.value.trim();
-      if (task !== "") {
-        const category = categorizeTask(task); // Call your categorization function here
-        const listItem = document.createElement("li");
-        listItem.textContent = task;
-        switch (category) {
-          case "Movies/Series":
-            document.getElementById("movieList").appendChild(listItem);
-            break;
-          case "Books":
-            document.getElementById("bookList").appendChild(listItem);
-            break;
-          case "Restaurants/Cafes":
-            document.getElementById("restaurantList").appendChild(listItem);
-            break;
-          case "Products":
-            document.getElementById("productList").appendChild(listItem);
-            break;
-          default:
-            // Handle default case or uncategorized tasks
-            alert("Unable to categorize task.");
-            break;
+      const taskDescription = $('#new-todo').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '/',
+        data: { 'new-todo': taskDescription },
+        success: function(response) {
+          const { category, listId } = response;
+          const listItem = $('<li>').text(taskDescription);
+          $('#' + listId).append(listItem);
+        },
+        error: function(xhr, status, error) {
+          console.error('Error adding task:', error);
         }
-        taskInput.value = ""; // Clear the input field after adding the task
-      }
+      });
     });
   });
 </script>

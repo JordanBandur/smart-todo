@@ -24,13 +24,19 @@ async function categorizeTask(taskDescription) {
   } else {
 
 
-
+    console.log('beforemodel')
     // if no keywords match, use the AI model (google gemini) to help categorize the task
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    console.log('aftermodel')
+
     const prompt = `Out of these four categories: Films/TV Series, Restaurants/Cafes, Books, and Products, which category would the task "${taskDescription}" most likely fall into?`;
     const result = await model.generateContent(prompt);
+    console.log(result);
+
     const response = await result.response;
     const text = await response.text();
+
+
 
     // extract category from the generated text
     const category = extractCategoryFromText(text);
@@ -39,8 +45,6 @@ async function categorizeTask(taskDescription) {
 }
 
 
-
-// this is the last line of defence lol, in case AI can't figure it out
 
 function extractCategoryFromText(text) {
   text = text.toLowerCase(); // Convert text to lowercase for case-insensitive matching
@@ -67,7 +71,7 @@ function extractCategoryFromText(text) {
   } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
-    return null; // Unable to determine category from text
+    return "Uncategorized"; // Unable to determine category from text
   }
 }
 
