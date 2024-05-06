@@ -63,6 +63,12 @@ header {
     font-weight: bold;
   }
 
+   .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
   .login-button {
     @include button-style($background-color-button, white);
   }
