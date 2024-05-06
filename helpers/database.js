@@ -1,13 +1,23 @@
 /* eslint-disable camelcase */
-const pool = require('pg');
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: "labber",
+  password: "labber",
+  host: "localhost",
+  database: "lightbnb",
+});
+
 //function for creating task
 const addTask = async(info) => {
-  const queryString = `INSERT INTO todos (user_id, title, category_id)
-                        VALUES($1, $2, $3)
-                        RETURNING *;`;
-  const {title, user_id, category_id} = info;
+  const queryString = `
+  INSERT INTO todos (title,)
+  VALUES($1)
+  RETURNING *;`;
+  const {title} = info;
   try {
-    const result = await pool.query(queryString, [user_id, title, category_id]);
+    const result = await pool
+      .query(queryString, [title]);
     return result.rows[0];
   } catch (err) {
     return Promise.reject(err);
