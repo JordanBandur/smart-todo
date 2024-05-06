@@ -1,6 +1,9 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const categorizeTask = require('./categorizeTask');
 
-function testCategorizeTask() {
+async function testCategorizeTask() {
   const taskDescriptions = [
     "Watch Harry Potter",
     "Eat at Joe's Diner",
@@ -8,12 +11,11 @@ function testCategorizeTask() {
     "Buy a new laptop"
   ];
 
-  taskDescriptions.forEach(description => {
-    const category = categorizeTask(description);
+  for (const description of taskDescriptions) {
+    const category = await categorizeTask(description);
     console.log(`Task: '${description}' is categorized as '${category}'`);
-  });
+  }
 }
 
 testCategorizeTask();
-
 
