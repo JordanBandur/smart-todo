@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const pool = require('pg');
 //function for creating task
-const addTask = async(info) => {
+const addToDo = async(info) => {
   const queryString = `INSERT INTO todos (user_id, title, category_id)
                         VALUES($1, $2, $3)
                         RETURNING *;`;
@@ -30,7 +30,7 @@ const getUserByEmail = async(email) => {
   }
 
 };
-const getTaskById = async(id) =>{
+const getToDoById = async(id) =>{
   const queryString = 'SELECT * FROM task WHERE id = $1';
   return pool
     .query(queryString, [id])
@@ -61,4 +61,4 @@ const getUserById = async(id) => {
     });
 };
 
-module.exports = {addTask, getUserByEmail, getTaskById, getUserById};
+module.exports = {addToDo, getUserByEmail, getToDoById, getUserById};
