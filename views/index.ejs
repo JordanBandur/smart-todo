@@ -31,10 +31,12 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
+  <script src="/scripts/login.js"></script>
 
 </head>
 <%- include('partials/header'); %>
 <body>
+  <%- include('partials/login'); %> <!--Login modal, hidden by default-->
   <%- include('add-todo'); %>
   <main class="todo-container">
     <%- include('todos'); %>
