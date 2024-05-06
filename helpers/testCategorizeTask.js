@@ -1,4 +1,5 @@
 
+// THIS WILL NOT WORK UNLESS YOU ARE USING NODE V.18 OR ABOVE!!!! RUN 'nvm use 18' in terminal if you are getting errors.
 const categorizeTask = require('./categorizeTask');
 
 async function testCategorizeTask() {

@@ -1,3 +1,5 @@
+
+// THIS WILL NOT WORK UNLESS YOU ARE USING NODE V.18 OR ABOVE!!!! RUN 'nvm use 18' in terminal if you are getting errors.
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -71,7 +73,7 @@ function extractCategoryFromText(text) {
   } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
-    return "Uncategorized"; // Unable to determine category from text
+    return "Movies/Series"; // Unable to determine category from text
   }
 }
 

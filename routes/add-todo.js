@@ -1,3 +1,4 @@
+// THIS WILL NOT WORK UNLESS YOU ARE USING NODE V.18 OR ABOVE!!!! RUN 'nvm use 18' in terminal if you are getting errors.
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
