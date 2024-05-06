@@ -41,24 +41,24 @@ async function categorizeTask(taskDescription) {
 
 
 
-// this is the last line of defence lol, in case AI can't figure it out
+// extracts category from the text if it can
 
 function extractCategoryFromText(text) {
-  text = text.toLowerCase(); // Convert text to lowercase for case-insensitive matching
+  text = text.toLowerCase(); // convert text to lowercase for case-insensitive matching
 
-  // Keywords for Movies/Series
+  // keywords for Movies/Series. Can add more keywords than were mentioned previously in the code
   const movieKeywords = ["movie", "film", "series", "tv show", "cinema"];
 
-  // Keywords for Restaurants/Cafes
+  // keywords for Restaurants/Cafes
   const restaurantKeywords = ["restaurant", "cafe", "diner", "eatery", "bistro", "pub"];
 
-  // Keywords for Books
+  // keywords for Books
   const bookKeywords = ["book", "novel", "story", "literature", "author"];
 
-  // Keywords for Products
+  // keywords for Products
   const productKeywords = ["product", "item", "purchase", "buy", "shop"];
 
-  // Check if any keywords from each category are included in the text
+  // check if any keywords from each category are included in the text
   if (movieKeywords.some(keyword => text.includes(keyword))) {
     return "Movies/Series";
   } else if (restaurantKeywords.some(keyword => text.includes(keyword))) {
@@ -68,9 +68,10 @@ function extractCategoryFromText(text) {
   } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
-    return null; // Unable to determine category from text
+    // If no keywords match, prioritize categories in a predetermined order
+    const priorityOrder = ["Movies/Series", "Restaurants/Cafes", "Books", "Products"];
+    return priorityOrder[0]; // Return the first category in the priority order
   }
-}
-
+};
 
 module.exports = categorizeTask;
