@@ -13,7 +13,7 @@ const addTask = async(info) => {
     return Promise.reject(err);
   }
 };
-const getUserByEmail = async (email) => {
+const getUserByEmail = async(email) => {
   const queryString = `
     SELECT *
     FROM users
@@ -22,7 +22,7 @@ const getUserByEmail = async (email) => {
   const queryParams = [email];
 
   try {
-    const res = await db.query(queryString, queryParams);
+    const res = await pool.query(queryString, queryParams);
     return res.rows[0] || null;
 
   } catch (err) {
