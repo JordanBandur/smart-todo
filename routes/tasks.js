@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/database'); // Import your database helper functions
 
-// Get all tasks
+// get all tasks
 router.get('/', async (req, res) => {
   try {
     const tasks = await db.getTasks(); // Assume getTasks is a function you'll define in your database module
@@ -12,38 +12,53 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Add a new task
+// add a new task
 router.post('/', async (req, res) => {
   try {
-    const { title, categoryId } = req.body; // Assume tasks are added with a title and categoryId
-    const newTask = await db.addTask(title, categoryId); // Assume addTask is a function in your database module
-    res.status(201).json(newTask);
+      const { title, categoryId, userId } = req.body;
+      const newTask = await db.addTask(title, categoryId, userId);
+      res.status(201).json(newTask);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to add task.' });
+      console.error(err); // Log the error to the console for debugging
+      res.status(500).json({ error: 'Failed to add task.' });
   }
 });
 
-// Update a task
-router.put('/:taskId', async (req, res) => {
+
+// update a task
+router.put('/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, category_id, user_id } = req.body;
+
   try {
-    const { title, categoryId } = req.body;
-    const { taskId } = req.params;
-    const updatedTask = await db.updateTask(taskId, title, categoryId);
-    res.json(updatedTask);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update task.' });
+      const sql = `UPDATE todos SET title = $1, category_id = $2, user_id = $3, updated_at = NOW() WHERE id = $4 RETURNING *;`;
+      const { rows } = await db.query(sql, [title, category_id, user_id, id]);
+      if (rows.length === 0) {
+          return res.status(404).json({ error: 'Task not found.' });
+      }
+      res.json(rows[0]);
+  } catch (error) {
+      console.error('Error updating task:', error);
+      res.status(500).json({ error: 'Error updating task.' });
   }
 });
 
-// Delete a task
-router.delete('/:taskId', async (req, res) => {
+
+
+// delete a task
+router.delete('/tasks/:id', async (req, res) => {
   try {
     const { taskId } = req.params;
-    await db.deleteTask(taskId);
-    res.status(204).end();
+    const deleted = await db.deleteTask(taskId);
+    if (deleted) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ error: 'Task not found.' });
+    }
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete task.' });
   }
 });
+
 
 module.exports = router;

@@ -6,22 +6,40 @@ const getTasks = () => {
 };
 
 
-const addTask = (title, categoryId) => {
-  const sql = 'INSERT INTO todos (title, category_id) VALUES ($1, $2) RETURNING *;';
-  return pool.query(sql, [title, categoryId])
-    .then(res => res.rows[0]);
+const addTask = async (title, categoryId, userId) => {
+  const sql = 'INSERT INTO todos (title, category_id, user_id) VALUES ($1, $2, $3) RETURNING *;';
+  try {
+      const { rows } = await pool.query(sql, [title, categoryId, userId]);
+      return rows[0];
+  } catch (err) {
+      console.error('Error adding task:', err);
+      throw err;
+  }
 };
 
-const updateTask = (taskId, title, categoryId) => {
-  const sql = 'UPDATE todos SET title = $1, category_id = $2 WHERE id = $3 RETURNING *;';
-  return pool.query(sql, [title, categoryId, taskId])
-    .then(res => res.rows[0]);
+
+const updateTask = async (taskId, title, categoryId, userId) => {
+  const sql = 'UPDATE todos SET title = $1, category_id = $2, user_id = $3, updated_at = NOW() WHERE id = $4 RETURNING *;';
+  try {
+      const { rows } = await pool.query(sql, [title, categoryId, userId, taskId]);
+      return rows[0];
+  } catch (err) {
+      console.error('Error updating task:', err);
+      throw err;
+  }
 };
 
-const deleteTask = (taskId) => {
-  const sql = 'DELETE FROM todos WHERE id = $1;';
-  return pool.query(sql, [taskId]);
+const deleteTask = async (taskId) => {
+  const sql = 'DELETE FROM todos WHERE id = $1 RETURNING *;';
+  try {
+      const { rows } = await pool.query(sql, [taskId]);
+      return rows[0];  // returns the deleted task, or undefined if no task was deleted
+  } catch (err) {
+      console.error('Error deleting task:', err);
+      throw err;
+  }
 };
+
 
 // Categories
 const getCategories = () => {

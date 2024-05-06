@@ -12,6 +12,7 @@
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.10.0",
     "axios": "^1.6.8",
     "chalk": "^2.4.2",
     "dotenv": "^2.0.0",
