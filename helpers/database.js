@@ -9,20 +9,19 @@ const pool = new Pool({
 });
 
 //function for creating task
-<<<<<<< HEAD
 const addTask = async(info) => {
   const queryString = `
   INSERT INTO todos (title,)
   VALUES($1)
   RETURNING *;`;
   const {title} = info;
-=======
+}
+
 const addToDo = async(info) => {
   const queryString = `INSERT INTO todos (user_id, title, category_id)
                         VALUES($1, $2, $3)
                         RETURNING *;`;
   const {title, user_id, category_id} = info;
->>>>>>> 5f6ebc50400f9ccf39eee745be53a26d914f7eb8
   try {
     const result = await pool
       .query(queryString, [title]);
@@ -31,6 +30,7 @@ const addToDo = async(info) => {
     return Promise.reject(err);
   }
 };
+
 const getUserByEmail = async(email) => {
   const queryString = `
     SELECT *
