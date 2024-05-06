@@ -20,7 +20,8 @@ async function categorizeTask(taskDescription) {
   }
 }
 
-// Example usage
-categorizeTask('Read the new book by J.K. Rowling')
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+
+  // This might be in the same file where you define categorizeTask or a separate one.
+
+
+  module.exports = categorizeTask; // Export the function for use in other files
