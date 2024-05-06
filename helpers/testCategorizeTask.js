@@ -1,9 +1,19 @@
-const categorizeTask = require('./helpers/categorizeTask'); // Adjust the path based on your project structure
+const categorizeTask = require('./categorizeTask');
 
-categorizeTask('Read the new book by J.K. Rowling')
-  .then(data => {
-    console.log('Categorization Results:', data);
-  })
-  .catch(err => {
-    console.error('Error categorizing task:', err);
+function testCategorizeTask() {
+  const taskDescriptions = [
+    "Watch Harry Potter",
+    "Eat at Joe's Diner",
+    "Read the latest Stephen King novel",
+    "Buy a new laptop"
+  ];
+
+  taskDescriptions.forEach(description => {
+    const category = categorizeTask(description);
+    console.log(`Task: '${description}' is categorized as '${category}'`);
   });
+}
+
+testCategorizeTask();
+
+

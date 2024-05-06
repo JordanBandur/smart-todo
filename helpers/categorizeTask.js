@@ -1,27 +1,35 @@
-const axios = require('axios');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const apiKey = process.env.GOOGLE_API_KEY;
-const url = 'https://language.googleapis.com/v1/documents:analyzeEntities?key=' + apiKey;
+// // access the API key as an environment variable
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-async function categorizeTask(taskDescription) {
-  const data = {
-    document: {
-      type: 'PLAIN_TEXT',
-      content: taskDescription,
-    }
-  };
 
-  try {
-    const response = await axios.post(url, data);
-    return response.data; // Process this data to extract categories
-  } catch (error) {
-    console.error('Failed to categorize task:', error);
-    return null;
+function categorizeTask(taskDescription) {
+  taskDescription = taskDescription.toLowerCase();
+
+  // Keywords for Movies/Series
+  const movieKeywords = ["watch", "see", "stream", "movie", "film", "episode", "series"];
+  // Keywords for Restaurants/Cafes
+  const restaurantKeywords = ["eat", "dine", "restaurant", "cafe", "food", "meal"];
+  // Keywords for Books
+  const bookKeywords = ["read", "book", "novel", "chapter", "author", "literature"];
+  // Keywords for Products
+  const productKeywords = ["buy", "purchase", "shop", "order", "product", "item"];
+
+  // Check if any keywords from each category are included in the task description
+  if (movieKeywords.some(keyword => taskDescription.includes(keyword))) {
+    return "Movies/Series";
+  } else if (restaurantKeywords.some(keyword => taskDescription.includes(keyword))) {
+    return "Restaurants/Cafes";
+  } else if (bookKeywords.some(keyword => taskDescription.includes(keyword))) {
+    return "Books";
+  } else if (productKeywords.some(keyword => taskDescription.includes(keyword))) {
+    return "Products";
+  } else {
+    return "Uncategorized";  // Default category if no keywords match
   }
 }
 
-
-  // This might be in the same file where you define categorizeTask or a separate one.
-
-
-  module.exports = categorizeTask; // Export the function for use in other files
+module.exports = categorizeTask;
