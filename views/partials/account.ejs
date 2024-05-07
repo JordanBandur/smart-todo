@@ -1,0 +1,21 @@
+<div id="accountModal" class="modal" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <button class="close" aria-label="Close">&times;</button>
+    <form action="/account-action" method="post">
+      <fieldset>
+        <legend id="accountModalLabel">Account</legend>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" aria-required="true">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required aria-required="true">
+
+        <!-- Hidden input to define action type -->
+        <input type="hidden" id="action" name="action" value="update">
+
+        <button type="submit" class="update-button button">Update</button>
+        <button type="button" class="logout-button button">Logout</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
