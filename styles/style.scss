@@ -1,5 +1,3 @@
-@import 'login';
-
 // Variables for colors and common values
 $font-stack-cursive: "Dancing Script", "Permanent Marker", cursive;
 $font-stack-sans: 'Open Sans', sans-serif;
@@ -74,6 +72,23 @@ header {
   .login-button {
     @include button-style($background-color-button, white);
   }
+
+  .user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      color: black;
+      background: none;
+      border: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 /* Todo form */
@@ -119,6 +134,7 @@ main.todo-container {
   .card {
     background-color: white;
     padding: 20px;
+    border-radius: 4px;
     box-shadow: 0 4px 8px $shadow-medium;
 
     h2 {
@@ -141,6 +157,9 @@ main.todo-container {
     }
   }
 }
+
+@import 'login';
+@import 'account';
 
 /* Responsive Design */
 @media (max-width: 768px) {
