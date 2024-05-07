@@ -50,7 +50,7 @@
 
       $.ajax({
         type: 'POST',
-        url: '/',
+        url: '/todos/',
         data: { 'new-todo': taskDescription },
         success: function(response) {
           const { category, listId } = response;
