@@ -20,29 +20,20 @@ router.post('/', async (req, res) => {
     let category = await categorizeTask(taskDescription);
 
     // Default to "Movies/Series" category if the category is missing or unexpected
-    if (!category || category === null || category === undefined) {
-      category = "Film/Series";
+    const validCategories = ['Film/Series', 'Books', 'Restaurants', 'Products'];
+    if (!validCategories.includes(category)) {
+      category = 'Film/Series';
     }
 
     // Determine the list ID based on the category
-    let listId;
-    switch (category) {
-      case "Film/Series":
-        listId = "movieList";
-        break;
-      case "Books":
-        listId = "bookList";
-        break;
-      case "Restaurants":
-        listId = "restaurantList";
-        break;
-      case "Products":
-        listId = "productList";
-        break;
-      default:
-        listId = null;
-        break;
-    }
+    const listIds = {
+      'Film/Series': 'movieList',
+      'Books': 'bookList',
+      'Restaurants': 'restaurantList',
+      'Products': 'productList'
+    };
+
+    let listId = listIds[category] || null;
 
     // Add the task to the database
     const newTask = await addToDo({ title: taskDescription, user_id: defaultUserId, category });
