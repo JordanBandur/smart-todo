@@ -33,6 +33,8 @@ app.use(express.json());
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
+const loginRoutes = require('./routes/login');
+const accountRoutes = require('./routes/account');
 const usersRoutes = require('./routes/users');
 const addTodoRoutes = require('./routes/add-todos');
 // Mount all resource routes
@@ -40,6 +42,8 @@ const addTodoRoutes = require('./routes/add-todos');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
+app.use(loginRoutes);
+app.use('/', accountRoutes);
 app.use('/users', usersRoutes);
 app.use('/todos', addTodoRoutes);
 // Note: mount other resources here, using the same pattern above
@@ -53,7 +57,7 @@ app.use('/todos', addTodoRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { user: req.session.user });
 });
 
 app.listen(PORT, () => {
