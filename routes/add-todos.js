@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
     }
 
     // Add the task to the database
-    const newTask = await addToDo({ title: taskDescription, user_id: defaultUserId, category });
+    const newTask = await addToDo({ title: taskDescription, user_id: req.session.user.id, category });
 
     // Send JSON response with category and list ID
     res.json({ category, listId, newTask });
