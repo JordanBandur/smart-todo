@@ -6,6 +6,7 @@ dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
+
 // define keyword arrays outside the function. can add to this.
 const movieKeywords = ["watch", "see", "stream", "movie", "film", "episode", "series"];
 const restaurantKeywords = ["eat", "dine", "restaurant", "cafe", "food", "meal"];
@@ -29,20 +30,23 @@ async function categorizeTask(taskDescription) {
 
     // use google gemini with a prompt if no keywords match. Gemini will try to figure it out. This might take 1-2 seconds.
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const prompt = `Out of these four categories: Film/Series, Restaurants, Books, and Products, which category would the task "${taskDescription}" most likely fall into?`;
+    const prompt = `Out of these four categories: Film/Series, Restaurants, Books, and Products, which category would the task "${taskDescription}" most likely fall into? Only tell me the category, and nothing else. Make it match verbatim`;
     const result = await model.generateContent(prompt);
+    console.log('result:' + result)
     const response = await result.response;
+    console.log(response)
     const text = await response.text();
+    console.log(text)
 
     // hopefully extract category from the generated text. function defined below.
     const category = extractCategoryFromText(text);
+    console.log('category:' + category)
     return category;
   }
 }
 
-// function to extract category from text
 function extractCategoryFromText(text) {
-  text = text.toLowerCase(); // Convert text to lowercase for case-insensitive matching
+  text = text.toLowerCase(); // convert text to lowercase for case-insensitive matching
 
   // check if any keywords from each category are included in the text
   if (movieKeywords.some(keyword => text.includes(keyword))) {
@@ -54,8 +58,11 @@ function extractCategoryFromText(text) {
   } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
-    return "Film/Series"; // unable to determine category from text, put into Movies/Series for now (can change this later)
+    return "Film/Series";
   }
 }
+
+// function to extract category from text
+
 
 module.exports = categorizeTask;
