@@ -40,6 +40,9 @@ h1, h2, button {
 body {
   font-family: $font-stack-sans;
   background-color: $background-color-light;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('https://img.freepik.com/premium-photo/brown-color-cork-board-wallpaper-texture_254791-1030.jpg?w=1380');
+  background-size: cover;
+  background-position: center;
   color: $text-color-main;
 }
 

@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
       category = 'Film/Series';
     }
 
-    console.log(category)
+    console.log('final category: ' + category);
 
     // Determine the list ID based on the category
     const listIds = {
