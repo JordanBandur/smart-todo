@@ -1,6 +1,6 @@
 -- Users table seeds here (Example)
-INSERT INTO users (username) VALUES
-('ByteMe'),
-('CacheCow'),
-('BinaryBard'),
-('ArrayOfSunshine');
+INSERT INTO users (username, password) VALUES
+('ByteMe', 'password'),
+('CacheCow', 'password'),
+('BinaryBard', 'password'),
+('ArrayOfSunshine', 'password');
