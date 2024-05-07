@@ -40,8 +40,8 @@ async function categorizeTask(taskDescription) {
 
     // hopefully extract category from the generated text. function defined below.
     const category = extractCategoryFromText(text);
-    console.log('category:' + category)
-    return category;
+    console.log('categorizeTask category:' + category)
+    return { name: category };
   }
 }
 

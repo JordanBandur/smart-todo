@@ -28,16 +28,16 @@ const addTask = async(info) => {
 };
 
 const addToDo = async(info) => {
-  const { title, user_id, category } = info;
+  const { title, user_id, categoryName } = info;
 
   try {
     // Query the database to retrieve the category ID based on the category name
-    const categoryQuery = await pool.query('SELECT id FROM categories WHERE name = $1', [category]);
+    const categoryQuery = await pool.query('SELECT id FROM categories WHERE name = $1', [categoryName]);
 
     // Check if a category with the specified name was found
     if (categoryQuery.rows.length === 0) {
       // Handle the case where the category was not found (e.g., return a default category or throw an error)
-      console.error('Category not found:', category);
+      console.error('Category not found:', categoryName);
       throw new Error('Category not found');
     }
 
