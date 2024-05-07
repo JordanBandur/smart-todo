@@ -39,6 +39,10 @@
   </ul>
 </section>
 
+<form id="new-todo-form">
+  <input type="text" id="new-todo" placeholder="Add a new todo">
+  <button type="submit">Add</button>
+</form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -50,7 +54,7 @@
 
       $.ajax({
         type: 'POST',
-        url: '/',
+        url: '/add-todos',
         data: { 'new-todo': taskDescription },
         success: function(response) {
           const { category, listId } = response;

@@ -18,17 +18,18 @@ async function categorizeTask(taskDescription) {
 
   // check if any keywords from each category are included in the task description
   if (movieKeywords.some(keyword => taskDescription.includes(keyword))) {
-    return "Movies/Series";
+    return { id: 1, name: "Film/Series" }; // Hardcoded category ID for Movies/Series
   } else if (restaurantKeywords.some(keyword => taskDescription.includes(keyword))) {
-    return "Restaurants/Cafes";
+    return { id: 2, name: "Restaurants" }; // Hardcoded category ID for Restaurants/Cafes
   } else if (bookKeywords.some(keyword => taskDescription.includes(keyword))) {
-    return "Books";
+    return { id: 3, name: "Books" }; // Hardcoded category ID for Books
   } else if (productKeywords.some(keyword => taskDescription.includes(keyword))) {
-    return "Products";
+    return { id: 4, name: "Products" }; // Hardcoded category ID for Products
   } else {
-    // use google gemini with a prompt if no keywords match. Gemini will try to figure it out
+
+    // use google gemini with a prompt if no keywords match. Gemini will try to figure it out. This might take 1-2 seconds.
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const prompt = `Out of these four categories: Films/TV Series, Restaurants/Cafes, Books, and Products, which category would the task "${taskDescription}" most likely fall into?`;
+    const prompt = `Out of these four categories: Film/Series, Restaurants, Books, and Products, which category would the task "${taskDescription}" most likely fall into?`;
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
@@ -45,15 +46,15 @@ function extractCategoryFromText(text) {
 
   // check if any keywords from each category are included in the text
   if (movieKeywords.some(keyword => text.includes(keyword))) {
-    return "Movies/Series";
+    return "Film/Series";
   } else if (restaurantKeywords.some(keyword => text.includes(keyword))) {
-    return "Restaurants/Cafes";
+    return "Restaurants";
   } else if (bookKeywords.some(keyword => text.includes(keyword))) {
     return "Books";
   } else if (productKeywords.some(keyword => text.includes(keyword))) {
     return "Products";
   } else {
-    return "Movies/Series"; // unable to determine category from text, put into Movies/Series for now (can change this later)
+    return "Film/Series"; // unable to determine category from text, put into Movies/Series for now (can change this later)
   }
 }
 
