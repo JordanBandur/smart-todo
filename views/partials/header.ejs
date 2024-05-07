@@ -5,6 +5,15 @@
     <i class="fa-solid fa-pen-to-square fa-xl"></i>
   </div>
   <nav>
-    <button id="loginBtn" class="login-button">Login</button>
+    <% if (typeof user !=='undefined' ) { %>
+      <div class="user-container">
+        <button id="accountBtn"><i class="fa-solid fa-user-pen fa-lg"></i></button>
+        <h2>
+          <%= user.username%>
+        </h2>
+      </div>
+      <% } else { %>
+        <button id="loginBtn" class="login-button">Login</button>
+        <% } %>
   </nav>
 </header>
