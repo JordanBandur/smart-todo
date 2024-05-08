@@ -24,10 +24,10 @@
   <!--Main CSS-->
   <link rel="stylesheet" href="/styles/style.css" />
 
-   <!-- Font awsome -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-   integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-   crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font awsome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
@@ -36,13 +36,20 @@
 
 </head>
 <%- include('partials/header'); %>
-<body>
-  <%- include('partials/login'); %> <!--Login modal, hidden by default-->
-  <%- include('partials/account'); %> <!--Account modal, hidden by default-->
-  <%- include('add-todo'); %>
-  <main class="todo-container">
-    <%- include('todos'); %>
-  </main>
-</body>
+  <body>
+    <%- include('partials/login'); %> <!--Login modal, hidden by default-->
+      <%- include('partials/account'); %> <!--Account modal, hidden by default-->
+        <% if (typeof user !=='undefined' && user) { %>
+          <%- include('add-todo'); %> <!-- Include the Add Todo form only if user is logged in -->
+            <% } else { %>
+              <section class="login-notification">
+                <p>You must be <span>logged</span> in to add todos. Please <span>login</span> to manage your tasks.</p>
+                </section>
+              <% } %>
+
+                <main class="todo-container">
+                  <%- include('todos'); %>
+                </main>
+  </body>
 
 </html>
