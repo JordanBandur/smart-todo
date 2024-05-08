@@ -4,7 +4,7 @@ $font-stack-sans: 'Open Sans', sans-serif;
 $background-color-light: #F4F4F4;
 $text-color-main: #333;
 $background-color-header: #FFD700;
-$background-color-button: #606D5D;
+$background-color-button: #355c2c;
 $background-color-button-hover: #4E5D4B;
 $background-color-form: #FFF8DC;
 $border-color: #ccc;
@@ -135,6 +135,8 @@ main.todo-container {
   box-sizing: border-box;
 
   .card {
+    position: relative;
+    height: 380px;
     background-color: white;
     height: 380px;
     overflow-y: auto;
@@ -162,6 +164,13 @@ main.todo-container {
   }
 
     h2 {
+      background: #fff;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      z-index: 10;
       margin-bottom: 20px;
       border-bottom: 2px solid $border-color;
       padding-bottom: 10px;
