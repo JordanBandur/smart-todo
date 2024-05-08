@@ -52,6 +52,7 @@
               const { category, listId } = response;
               const listItem = $('<li>').text(taskDescription);
               $('#' + listId).append(listItem);
+              fetchTodos();
             },
             error: function(xhr, status, error) {
               console.error('Error adding task:', error);
