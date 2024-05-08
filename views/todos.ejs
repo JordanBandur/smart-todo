@@ -1,66 +1,62 @@
-<section class="card">
-  <h2>Movies</h2>
-  <ul id="movieList">
-    <!-- Existing list items -->
-    <li>Forrest Gump</li>
-    <li>Friends</li>
-    <li>Lost</li>
-    <li>Frozen</li>
-    <li>Moana</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Books</h2>
-  <ul id="bookList">
-    <!-- Existing list items -->
-    <li>Catcher in the Rye</li>
-    <li>To Kill a Mockingbird</li>
-    <li>Lord of the Flies</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Restaurants</h2>
-  <ul id="restaurantList">
-    <!-- Existing list items -->
-    <li>Osmows</li>
-    <li>Second Cup</li>
-    <li>Mucho Burrito</li>
-    <li>Muncheez</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Products</h2>
-  <ul id="productList">
-    <!-- Existing list items -->
-    <li>Table Lamp</li>
-    <li>Shampoo</li>
-    <li>Soccer Ball</li>
-    <li>Coffee</li>
-  </ul>
-</section>
+<% if (user) { %>
+  console.log(user);
+  <!-- Todos will be loaded here via AJAX -->
+  <% } %>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#new-todo-form').submit(function(event) {
-      event.preventDefault(); // Prevent the form from submitting normally
-
-      const taskDescription = $('#new-todo').val();
-
-      $.ajax({
-        type: 'POST',
-        url: '/todos/',
-        data: { 'new-todo': taskDescription },
-        success: function(response) {
-          const { category, listId } = response;
-          const listItem = $('<li>').text(taskDescription);
-          $('#' + listId).append(listItem);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error adding task:', error);
+        function fetchTodos() {
+          $.ajax({
+            url: '/todos',
+            type: 'GET',
+            success: function(data) {
+              const { categorizedTodos } = data;
+              updateTodoDisplay(categorizedTodos);
+            },
+            error: function(error) {
+              console.error('Error fetching todos:', error);
+            }
+          });
         }
+
+        function updateTodoDisplay(categorizedTodos) {
+          const container = $('.todo-container');
+          container.empty(); // Make sure this is the correct element
+
+          Object.keys(categorizedTodos).forEach(function(category) {
+            const listId = category.toLowerCase() + 'List';
+            let sectionHtml = `<section class="card">
+            <h2>${category}</h2>
+            <ul id="${listId}">
+                ${categorizedTodos[category].map(todo => `<li>${todo}</li>`).join('')}
+            </ul>
+        </section>`;
+            container.append(sectionHtml);
+          });
+        }
+
+        fetchTodos(); // Initial fetch
+
+        $('#new-todo-form').submit(function(event) {
+          event.preventDefault(); // Prevent the form from submitting normally
+
+          const taskDescription = $('#new-todo').val();
+
+          $.ajax({
+            type: 'POST',
+            url: '/todos/',
+            data: { 'new-todo': taskDescription },
+            success: function(response) {
+              const { category, listId } = response;
+              const listItem = $('<li>').text(taskDescription);
+              $('#' + listId).append(listItem);
+            },
+            error: function(xhr, status, error) {
+              console.error('Error adding task:', error);
+            }
+          });
+        });
       });
-    });
-  });
-</script>
+    </script>
