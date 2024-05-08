@@ -187,6 +187,16 @@ main.todo-container {
         &:last-child {
           border-bottom: none;
         }
+
+        &.completed {
+          text-decoration: line-through;
+          color: $text-color-main;  // Consistent color usage
+          opacity: 0.6;
+          background-color: lighten($background-color-light, 10%);
+          font-weight: bold;  // Making text bold
+          font-size: 110%;  // Slightly larger text
+          transition: all $transition-speed ease;
+        }
       }
     }
   }
