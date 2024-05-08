@@ -152,6 +152,7 @@ main.todo-container {
       li {
         border-bottom: 1px solid #eee;
         padding: 8px 0;
+        cursor: pointer;
 
         &:last-child {
           border-bottom: none;

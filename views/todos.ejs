@@ -1,66 +1,91 @@
-<section class="card">
-  <h2>Movies</h2>
-  <ul id="movieList">
-    <!-- Existing list items -->
-    <li>Forrest Gump</li>
-    <li>Friends</li>
-    <li>Lost</li>
-    <li>Frozen</li>
-    <li>Moana</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Books</h2>
-  <ul id="bookList">
-    <!-- Existing list items -->
-    <li>Catcher in the Rye</li>
-    <li>To Kill a Mockingbird</li>
-    <li>Lord of the Flies</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Restaurants</h2>
-  <ul id="restaurantList">
-    <!-- Existing list items -->
-    <li>Osmows</li>
-    <li>Second Cup</li>
-    <li>Mucho Burrito</li>
-    <li>Muncheez</li>
-  </ul>
-</section>
-<section class="card">
-  <h2>Products</h2>
-  <ul id="productList">
-    <!-- Existing list items -->
-    <li>Table Lamp</li>
-    <li>Shampoo</li>
-    <li>Soccer Ball</li>
-    <li>Coffee</li>
-  </ul>
-</section>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#new-todo-form').submit(function(event) {
-      event.preventDefault(); // prevent normal submit
-
-      const taskDescription = $('#new-todo').val();
-
-      $.ajax({
-        type: 'POST',
-        url: '/todos/',
-        data: { 'new-todo': taskDescription },
-        success: function(response) {
-          const { category, listId } = response;
-          const listItem = $('<li>').text(taskDescription);
-          $('#' + listId).append(listItem);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error adding task:', error);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            font-weight: bold;
+            color: darkgray;
         }
-      });
+    </style>
+</head>
+<body>
+    <section class="card">
+        <h2>Movies</h2>
+        <ul id="movieList">
+            <li>Forrest Gump</li>
+            <li>Friends</li>
+            <li>Lost</li>
+            <li>Frozen</li>
+            <li>Moana</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Books</h2>
+        <ul id="bookList">
+            <li>Catcher in the Rye</li>
+            <li>To Kill a Mockingbird</li>
+            <li>Lord of the Flies</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Restaurants</h2>
+        <ul id="restaurantList">
+            <li>Osmows</li>
+            <li>Second Cup</li>
+            <li>Mucho Burrito</li>
+            <li>Muncheez</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Products</h2>
+        <ul id="productList">
+            <li>Table Lamp</li>
+            <li>Shampoo</li>
+            <li>Soccer Ball</li>
+            <li>Coffee</li>
+        </ul>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+  $(document).ready(function() {
+    console.log("jQuery is loaded!");
+
+    // Delegate click event to the parent `ul` for existing and future `li` elements
+    $('section.card').on('click', 'ul li', function() {
+        $(this).toggleClass('completed');
     });
-  });
-</script>
+
+    $('#new-todo-form').submit(function(event) {
+        event.preventDefault();
+        const taskDescription = $('#new-todo').val();
+        $.ajax({
+            type: 'POST',
+            url: '/todos/',
+            data: { 'new-todo': taskDescription },
+            success: function(response) {
+                const { category, listId } = response;
+                const listItem = $('<li>').text(taskDescription)
+                    .attr('role', 'button')
+                    .attr('aria-label', 'Mark ' + taskDescription + ' as completed');
+
+                // Append the new item directly without binding a new click event
+                $('#' + listId).append(listItem);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error adding task:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
