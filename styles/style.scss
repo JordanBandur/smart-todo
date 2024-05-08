@@ -138,9 +138,9 @@ main.todo-container {
     position: relative;
     height: 380px;
     background-color: white;
-    height: 380px;
     overflow-y: auto;
     padding: 20px;
+    padding-top: 0px;
     border-radius: 4px;
     box-shadow: 0 4px 8px $shadow-medium;
 
@@ -165,7 +165,7 @@ main.todo-container {
 
     h2 {
       background: #fff;
-      padding: 10px;
+      padding: 20px;
       width: 100%;
       box-sizing: border-box;
       position: sticky;
