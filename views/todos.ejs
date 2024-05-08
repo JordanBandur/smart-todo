@@ -27,7 +27,7 @@
 
           Object.keys(categorizedTodos).forEach(function(category) {
             const listId = category.toLowerCase() + 'List';
-            let sectionHtml = `<section class="card">
+            let sectionHtml = `<section class="card ${category}">
             <h2>${category}</h2>
             <ul id="${listId}">
                 ${categorizedTodos[category].map(todo => `<li>${todo}</li>`).join('')}
