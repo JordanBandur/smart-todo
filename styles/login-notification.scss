@@ -1,0 +1,27 @@
+.login-notification {
+  background-color: white; // Changed from light grey to white
+  color: black; // Dark text for readability
+  text-align: center;
+  padding: 20px;
+  margin: 0px 20px;
+  margin-top: 120px;
+  border: 1px solid #ccc; // Subtle border
+  border-radius: 8px; // Rounded corners
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Soft shadow
+
+  a { // just in case we want to use links within the notification
+    color: #0066ff;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: #788974;
+    font-family: "Dancing Script", "Permanent Marker", cursive;
+    font-size: 18px;
+  }
+}
