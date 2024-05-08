@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const categorizeTask = require('../helpers/categorizeTask');
 const { addToDo } = require('../helpers/database');
 const db = require('../db/connection');
-const { fetchAndCategorizeTodos } = require('../helpers/fetchAndCategorizeTodos');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
