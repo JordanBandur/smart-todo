@@ -48,9 +48,6 @@ $(document).ready(function() {
         sectionHtml += `<li id=${todo.id} class=${todo.completed ? 'completed' : ''}>${todo.title}</li>`;  // Directly using title received from backend
       });
 
-      // categorizedTodos[category].forEach((todo) => {
-      //   sectionHtml += `<li ${todo.complete ? 'completed' : ''}>${todo.title}</li>`;  // Directly using title received from backend
-      // });
 
       sectionHtml += `</ul></section>`;
       container.append(sectionHtml);
@@ -68,6 +65,8 @@ $(document).ready(function() {
 
   fetchTodos(); // Initial fetch
 
+
+  
   $('#new-todo-form').submit(function(event) {
     event.preventDefault();
     const taskDescription = $('#new-todo').val();
