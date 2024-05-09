@@ -40,7 +40,8 @@ $(document).ready(function() {
 
     Object.keys(categorizedTodos).forEach(function(category) {
       console.log('catego2', categorizedTodos)
-      const listId = category.toLowerCase().replace(/\s+/g, '-') + '-list';  // Create a unique list ID by category
+      const listId = category.toLowerCase().replace(/\s+/g, '-').replace('/', '-') + '-list';
+      // const listId = category.toLowerCase().replace(/\s+/g, '-') + '-list';
       let sectionHtml = `<section class="card ${category}">
       <h2>${category}</h2>
       <ul id="${listId}">`;
@@ -76,9 +77,7 @@ $(document).ready(function() {
   // POST todo
   $('#new-todo-form').submit(function(event) {
     event.preventDefault();
-
     const taskDescription = $('#new-todo').val();
-
     $.ajax({
       type: 'POST',
       url: '/todos/',
