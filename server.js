@@ -56,6 +56,9 @@ app.use(loginRoutes);
 app.use('/', accountRoutes);
 app.use('/users', usersRoutes);
 app.use('/todos', addTodoRoutes);
+app.use(todosCompletedRoutes);
+app.use(suggestionRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 //app.use('/todos', addTaskRoutes);
