@@ -51,13 +51,11 @@ $(document).ready(function() {
     });
   }
 
-
   function updateTodoDisplay(categorizedTodos) {
     const container = $('.todo-container');
     container.empty(); // Clear the container before updating
 
     Object.keys(categorizedTodos).forEach(function(category) {
-      console.log('catego2', categorizedTodos);
       const listId = category.toLowerCase().replace(/\s+/g, '-').replace('/', '-') + '-list';
       // const listId = category.toLowerCase().replace(/\s+/g, '-') + '-list';
       let sectionHtml = `<section class="card ${category}">
@@ -68,13 +66,8 @@ $(document).ready(function() {
         sectionHtml += `<li id=${todo.id} class=${todo.completed ? 'completed' : ''}>${todo.title}</li>`;  // Directly using title received from backend
       });
 
-      // categorizedTodos[category].forEach((todo) => {
-      //   sectionHtml += `<li ${todo.complete ? 'completed' : ''}>${todo.title}</li>`;  // Directly using title received from backend
-      // });
-
       sectionHtml += `</ul></section>`;
       container.append(sectionHtml);
-
     });
   }
 
@@ -84,7 +77,6 @@ $(document).ready(function() {
     const taskId = $(this).attr('id');
     updateCompleted(taskId, isCompleted);
   });
-
 
   fetchTodos(); // Initial fetch
 
@@ -96,15 +88,13 @@ $(document).ready(function() {
       url: '/todos/',
       data: { 'new-todo': taskDescription },
       success: function(response) {
-        console.log(response);
         const { category } = response;
         const categoryName = (typeof category === 'object' && category.name) ? category.name : category;
         const normalizedCategoryName = categoryName.toLowerCase().replace(/\s+/g, '-').replace('/', '-'); // Normalize the category name
         const listId = normalizedCategoryName + '-list';
-        console.log(taskDescription);
         const listItem = $('<li>').text(taskDescription);
         $('#' + listId).prepend(listItem);
-        console.log(listId);
+        fetchTodos();
         $('#new-todo').val('');
       },
       error: function(xhr, status, error) {
