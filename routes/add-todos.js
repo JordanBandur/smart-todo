@@ -16,19 +16,22 @@ router.get('/', async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
 }
   try {
-      const todosResult = await db.query(`
-          SELECT todos.title, categories.name AS category_name
-          FROM todos
-          JOIN categories ON todos.category_id = categories.id
-          ORDER BY categories.name, todos.created_at DESC;
-      `);
+    const todosResult = await db.query(`
+    SELECT todos.id, todos.title, todos.completed, categories.name AS category_name
+    FROM todos
+    JOIN categories ON todos.category_id = categories.id
+    ORDER BY categories.name, todos.created_at DESC;
+    `);
+    console.log('todo', todosResult)
+
       const todos = todosResult.rows;
 
       const categorizedTodos = todos.reduce((acc, todo) => {
           if (!acc[todo.category_name]) {
               acc[todo.category_name] = [];
           }
-          acc[todo.category_name].push(todo.title);
+          acc[todo.category_name].push({id: todo.id, title: todo.title, completed: todo.completed});
+          // acc[todo.category_name].push(todo.title);
           return acc;
       }, {});
 
