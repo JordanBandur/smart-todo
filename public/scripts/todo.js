@@ -32,8 +32,6 @@ $(document).ready(function() {
 }
 
 
-
-
   function updateTodoDisplay(categorizedTodos) {
     const container = $('.todo-container');
     container.empty(); // Clear the container before updating
@@ -68,6 +66,12 @@ $(document).ready(function() {
   fetchTodos(); // Initial fetch
 
 
+
+  function escapeCategoryId(id) {
+    return id.replace(/[^A-Z0-9]+/ig, "\\$&"); // This escapes special characters with a backslash
+  }
+
+  // POST todo
 
   function escapeCategoryId(id) {
     return id.replace(/[^A-Z0-9]+/ig, "\\$&"); // This escapes special characters with a backslash
