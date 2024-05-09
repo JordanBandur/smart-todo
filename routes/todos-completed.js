@@ -8,25 +8,21 @@ router.post('/:id', async (req, res) => { // this now handles POST requests to '
   const taskId = req.params.id;
   const completed = req.body.completed; // assume this is a boolean directly
 
-  console.log("Received completed status:", req.body.completed); // log the boolean value
-  console.log("Task ID:", req.params.id); // log the task ID
-
   try {
-      const result = await db.query(
-          'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING *',
-          [completed, taskId]
-      );
+    const result = await db.query(
+      'UPDATE todos SET completed = $1 WHERE id = $2 RETURNING *',
+      [completed, taskId]
+    );
 
-      if (result.rows.length > 0) {
-          res.json({ message: 'Task updated successfully', task: result.rows[0] });
-      } else {
-          res.status(404).json({ error: 'Task not found' });
-      }
+    if (result.rows.length > 0) {
+      res.json({ message: 'Task updated successfully', task: result.rows[0] });
+    } else {
+      res.status(404).json({ error: 'Task not found' });
+    }
   } catch (error) {
-      console.error('Error updating task:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error updating task:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 module.exports = router;

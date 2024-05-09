@@ -5,9 +5,7 @@ $(document).ready(function() {
       url: '/todos',
       type: 'GET',
       success: function(data) {
-        console.log('data');
         const { categorizedTodos } = data;
-        console.log('cat1', categorizedTodos);
         updateTodoDisplay(categorizedTodos);
       },
       error: function(error) {

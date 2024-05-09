@@ -9,7 +9,7 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const addTask = async(info) => {
+const addTask = async (info) => {
   const { title } = info;
 
   try {
@@ -27,7 +27,7 @@ const addTask = async(info) => {
   }
 };
 
-const addToDo = async(info) => {
+const addToDo = async (info) => {
   const { title, user_id, categoryName } = info;
 
   try {
@@ -57,8 +57,7 @@ const addToDo = async(info) => {
   }
 };
 
-
-const getUserByEmail = async(email) => {
+const getUserByEmail = async (email) => {
   const queryString = `
     SELECT *
     FROM users
@@ -74,7 +73,7 @@ const getUserByEmail = async(email) => {
   }
 };
 
-const getToDoById = async(id) => {
+const getToDoById = async (id) => {
   const queryString = 'SELECT * FROM task WHERE id = $1';
   return pool
     .query(queryString, [id])
@@ -90,7 +89,7 @@ const getToDoById = async(id) => {
     });
 };
 
-const getUserById = async(id) => {
+const getUserById = async (id) => {
   const queryString = 'SELECT * FROM users WHERE id = $1';
   return pool
     .query(queryString, [id])

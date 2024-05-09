@@ -6,7 +6,6 @@ dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-
 // define keyword arrays outside the function. can add to this.
 const movieKeywords = ["watch", "see", "stream", "movie", "film", "episode", "series"];
 const restaurantKeywords = ["eat", "dine", "restaurant", "cafe", "food", "meal"];
@@ -32,15 +31,11 @@ async function categorizeTask(taskDescription) {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const prompt = `Out of these four categories: Film/Series, Restaurants, Books, and Products, which category would the task "${taskDescription}" most likely fall into? Only tell me the category, and nothing else. Make it match verbatim`;
     const result = await model.generateContent(prompt);
-    console.log('result:' + result)
     const response = await result.response;
-    console.log(response)
     const text = await response.text();
-    console.log(text)
 
     // hopefully extract category from the generated text. function defined below.
     const category = extractCategoryFromText(text);
-    console.log('categorizeTask category:' + category)
     return { name: category };
   }
 }
@@ -61,8 +56,5 @@ function extractCategoryFromText(text) {
     return "Film/Series";
   }
 }
-
-// function to extract category from text
-
 
 module.exports = categorizeTask;

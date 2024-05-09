@@ -17,7 +17,7 @@ $(document).ready(function() {
   // Function to set action and submit form
   const setAction = function(action) {
     $('#action').val(action); // Set the action type
-    console.log($('#username').val()); // Log the username to ensure it's captured correctly
+
     $('form').submit(); // Submit the form
   };
 

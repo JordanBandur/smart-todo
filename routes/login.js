@@ -11,8 +11,6 @@ router.post('/login', async (req, res) => {
     // Query database for user
     const query = 'SELECT * FROM users WHERE username = $1';
     const { rows } = await db.query(query, [username]);
-    console.log(rows);
-    console.log(rows[0].password);
 
     if (rows.length > 0) {
       const user = rows[0];

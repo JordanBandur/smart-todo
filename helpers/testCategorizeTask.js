@@ -15,7 +15,6 @@ async function testCategorizeTask() {
 
   for (const description of taskDescriptions) {
     const category = await categorizeTask(description);
-    console.log(`Task: '${description}' is categorized as '${category}'`);
   }
 }
 
