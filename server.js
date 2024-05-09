@@ -46,6 +46,7 @@ const accountRoutes = require('./routes/account');
 const usersRoutes = require('./routes/users');
 const addTodoRoutes = require('./routes/add-todos');
 const todosCompletedRoutes = require('./routes/todos-completed');
+const suggestionRoutes = require('./routes/suggest-todo');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -55,11 +56,10 @@ app.use(loginRoutes);
 app.use('/', accountRoutes);
 app.use('/users', usersRoutes);
 app.use('/todos', addTodoRoutes);
-app.use('/todos-completed', todosCompletedRoutes);
+app.use(todosCompletedRoutes);
+app.use(suggestionRoutes);
+
 // Note: mount other resources here, using the same pattern above
-
-
-
 
 //app.use('/todos', addTaskRoutes);
 // Home page
