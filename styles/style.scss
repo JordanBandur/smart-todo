@@ -143,7 +143,6 @@ main.todo-container {
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 4px 8px $shadow-medium;
-
      // Styling the scrollbar for Chrome, Edge, and Safari
   &::-webkit-scrollbar {
     width: 8px;  // scrollbar width
@@ -161,6 +160,7 @@ main.todo-container {
       background-color: #A0A0A0;  // scrollbar thumb color on hover
       transition: background-color 0.2s ease;  // smooth transition on hover
     }
+
   }
 
     h2 {
@@ -172,7 +172,7 @@ main.todo-container {
       top: 0;
       z-index: 10;
       margin-bottom: 20px;
-      border-bottom: 2px solid $border-color;
+      border-bottom: 2px solid #000000;
       padding-bottom: 10px;
     }
 
@@ -180,8 +180,9 @@ main.todo-container {
       list-style-type: none;
 
       li {
-        border-bottom: 1px solid #eee;
         padding: 8px 0;
+        font-weight: bold;
+        border-bottom: 2px solid rgb(31, 30, 30);
         cursor: pointer;
 
         &:last-child {
@@ -198,6 +199,30 @@ main.todo-container {
           transition: all $transition-speed ease;
         }
       }
+    }
+  }
+  .Books {
+    background-color: rgba(255, 192, 203);
+    h2{
+      background: transparent;
+    }
+  }
+  [class="card Film/Series"]{
+    background-color: rgb(118, 169, 228);
+    h2{
+      background: transparent;
+    }
+  }
+  .Products{
+    background-color: rgb(236, 238, 122);
+    h2{
+      background: transparent;
+    }
+  }
+  .Restaurants{
+    background-color: rgb(123, 230, 150);
+    h2{
+      background: transparent;
     }
   }
 }
