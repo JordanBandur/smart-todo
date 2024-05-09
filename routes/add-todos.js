@@ -14,28 +14,30 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/', async (req, res) => {
   if (!req.session || !req.session.user) {
     return res.status(401).json({ error: 'Unauthorized' });
-}
+  }
   try {
-      const todosResult = await db.query(`
-          SELECT todos.title, categories.name AS category_name
-          FROM todos
-          JOIN categories ON todos.category_id = categories.id
-          ORDER BY categories.name, todos.created_at DESC;
-      `);
+    const todosResult = await db.query(`
+    SELECT todos.id, todos.title, todos.completed, categories.name AS category_name
+    FROM todos
+    JOIN categories ON todos.category_id = categories.id
+    ORDER BY categories.name, todos.created_at DESC;
+    `);
+    console.log('todo', todosResult)
+
       const todos = todosResult.rows;
 
-      const categorizedTodos = todos.reduce((acc, todo) => {
-          if (!acc[todo.category_name]) {
-              acc[todo.category_name] = [];
-          }
-          acc[todo.category_name].push(todo.title);
-          return acc;
-      }, {});
+    const categorizedTodos = todos.reduce((acc, todo) => {
+      if (!acc[todo.category_name]) {
+        acc[todo.category_name] = [];
+      }
+      acc[todo.category_name].push(todo.title);
+      return acc;
+    }, {});
 
-      res.json({categorizedTodos }); // Send this data as JSON
+    res.json({ categorizedTodos }); // Send this data as JSON
   } catch (err) {
-      console.error('Error fetching todos:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error fetching todos:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
