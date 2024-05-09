@@ -14,6 +14,10 @@ $(document).ready(function() {
     });
   }
 
+  function escapeCategoryId(id) {
+    return id.replace(/[^A-Z0-9]+/ig, "\\$&"); // This escapes special characters with a backslash
+  }
+
   function updateTodoDisplay(categorizedTodos) {
     const container = $('.todo-container');
     container.empty(); // Clear the container before updating
@@ -40,6 +44,7 @@ $(document).ready(function() {
 
   fetchTodos(); // Initial fetch
 
+  // POST todo
   $('#new-todo-form').submit(function(event) {
     event.preventDefault();
 
@@ -54,15 +59,35 @@ $(document).ready(function() {
         const { category } = response;
         const categoryName = (typeof category === 'object' && category.name) ? category.name : category;
         if (typeof categoryName === 'string') {
-          const listId = categoryName.toLowerCase().replace(/\s+/g, '-') + '-list';
+          const listId = escapeCategoryId(categoryName.toLowerCase().replace(/\s+/g, '-')) + '-list';
           const listItem = $('<li>').text(taskDescription);
-        $('#' + listId).prepend(listItem);
+          $('#' + listId).prepend(listItem);
         }
 
         $('#new-todo').val('');
       },
       error: function(xhr, status, error) {
         console.error('Error adding task:', error);
+      }
+    });
+  });
+
+  $('#random-todo').click(function() {
+    $(this).prop('disabled', true).text('Loading...');
+
+    $.ajax({
+      url: '/suggest-todo',
+      type: 'POST',
+      success: function(data) {
+        if (data.success) {
+          $('#new-todo').val(data.suggestion);
+        } else {
+          alert('Failed to get suggestion: ' + data.message);
+        }
+        $('#random-todo').prop('disabled', false).text('Suggest');
+      },
+      error: function() {
+        alert('Error contacting server.');
       }
     });
   });
