@@ -40,7 +40,8 @@ $(document).ready(function() {
 
     Object.keys(categorizedTodos).forEach(function(category) {
       console.log('catego2', categorizedTodos)
-      const listId = category.toLowerCase().replace(/\s+/g, '-') + '-list';  // Create a unique list ID by category
+      const listId = category.toLowerCase().replace(/\s+/g, '-').replace('/', '-') + '-list';
+      // const listId = category.toLowerCase().replace(/\s+/g, '-') + '-list';
       let sectionHtml = `<section class="card ${category}">
       <h2>${category}</h2>
       <ul id="${listId}">`;
@@ -76,30 +77,28 @@ $(document).ready(function() {
   // POST todo
   $('#new-todo-form').submit(function(event) {
     event.preventDefault();
-
     const taskDescription = $('#new-todo').val();
-
     $.ajax({
-      type: 'POST',
-      url: '/todos/',
-      data: { 'new-todo': taskDescription },
-      success: function(response) {
-
-        const { category } = response;
-        const categoryName = (typeof category === 'object' && category.name) ? category.name : category;
-        if (typeof categoryName === 'string') {
-          const listId = escapeCategoryId(categoryName.toLowerCase().replace(/\s+/g, '-')) + '-list';
-          const listItem = $('<li>').text(taskDescription);
-          $('#' + listId).prepend(listItem);
+        type: 'POST',
+        url: '/todos/',
+        data: { 'new-todo': taskDescription },
+        success: function(response) {
+          console.log(response);
+            const { category } = response;
+            const categoryName = (typeof category === 'object' && category.name) ? category.name : category;
+            const normalizedCategoryName = categoryName.toLowerCase().replace(/\s+/g, '-').replace('/', '-'); // Normalize the category name
+            const listId = normalizedCategoryName + '-list';
+            console.log(taskDescription);
+            const listItem = $('<li>').text(taskDescription);
+            $('#' + listId).prepend(listItem);
+            console.log(listId);
+            $('#new-todo').val('');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error adding task:', error);
         }
-
-        $('#new-todo').val('');
-      },
-      error: function(xhr, status, error) {
-        console.error('Error adding task:', error);
-      }
     });
-  });
+});
 
   $('#random-todo').click(function() {
     $(this).prop('disabled', true).text('Loading...');
@@ -120,4 +119,7 @@ $(document).ready(function() {
       }
     });
   });
+
+
+
 });
