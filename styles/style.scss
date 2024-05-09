@@ -14,7 +14,8 @@ $transition-speed: 0.3s;
 
 // Mixin for button styles
 @mixin button-style($bg-color, $text-color) {
-  padding: 10px 20px;
+  padding: 8px 16px;
+  min-width: 100px;
   background-color: $bg-color;
   color: $text-color;
   border: none;
@@ -24,6 +25,12 @@ $transition-speed: 0.3s;
 
   &:hover {
     background-color: lighten($bg-color, 10%);
+  }
+
+  &:disabled {
+    color: #ccc;
+    background: #eee;
+    cursor: not-allowed;
   }
 }
 
