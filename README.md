@@ -1,5 +1,13 @@
 Smart ToDo User's Guide
 =========
+## Screenshots
+!["User not logged in"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-not-logged-in.png)
+!["User login"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-login.png)
+!["User logged in"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-logged-in.png)
+!["User adding todo"](https://github.com/JordanBandur/smart-todo/blob/master/docs/adding-todo.png)
+!["Added todo"](https://github.com/JordanBandur/smart-todo/blob/master/docs/added-todo.png)
+!["User completes todo"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-complete-todos.png)
+!["User account modal"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-account.png)
 
 ## Getting Started
 
