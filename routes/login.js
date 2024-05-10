@@ -21,8 +21,12 @@ router.post('/login', async (req, res) => {
         req.session.user = { id: user.id, username: user.username };
         res.redirect('/');
       } else {
-        res.send('Username or password incorrect');
+        // Password does not match
+        res.status(401).send('Username or password incorrect');
       }
+    } else {
+      // No user found with the username
+      res.status(401).send('Username or password incorrect');
     }
   } catch (err) {
     console.error('Database error', err);
