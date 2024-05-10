@@ -36,25 +36,18 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
 const loginRoutes = require('./routes/login');
 const accountRoutes = require('./routes/account');
-const usersRoutes = require('./routes/users');
 const addTodoRoutes = require('./routes/add-todos');
 const todosCompletedRoutes = require('./routes/todos-completed');
 const suggestTodoRoutes = require('./routes/suggest-todo');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
 app.use(loginRoutes);
 app.use('/', accountRoutes);
-app.use('/users', usersRoutes);
 app.use('/todos', addTodoRoutes);
 app.use('/todos-completed', todosCompletedRoutes);
 app.use('/', suggestTodoRoutes);
@@ -64,6 +57,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Smart ToDo App listening on port ${PORT}`);
 });
 
