@@ -1,5 +1,5 @@
 {
-  "name": "node-skeleton",
+  "name": "Smart Todo",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
-  "author": "Lighthouse Labs",
+  "authors": "Jordan Bandur, Sergio Rodriguez, Miguel Augusto",
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.10.0",
