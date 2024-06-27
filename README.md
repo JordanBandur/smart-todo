@@ -1,5 +1,28 @@
 Smart ToDo User's Guide
 =========
+## Description
+A smart, auto-categorizing todo list app. The user simply has to add the name of the thing, and it gets put into the correct list. 
+## Tech Stack
+
+### **Front End**
+- JavaScript
+- EJS
+- CSS
+- Sass
+
+### **Back End**
+- Node.js
+- Express
+- PostgreSQL (pg)
+- bcrypt
+- dotenv
+- express-session
+- morgan
+- node-fetch
+- cross-fetch
+- chalk
+- @google/generative-ai
+
 ## Screenshots
 !["User not logged in"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-not-logged-in.png)
 !["User login"](https://github.com/JordanBandur/smart-todo/blob/master/docs/user-login.png)
@@ -13,9 +36,9 @@ Smart ToDo User's Guide
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
 2. Update the .env file with your correct local information 
-  - username: `labber` 
-  - password: `labber` 
-  - database: `midterm`
+  - username: `your-username` 
+  - password: `your-password` 
+  - database: `your-database-name`
 3. Install dependencies: `npm i`
 4. Fix to binaries for sass: `npm rebuild node-sass`
 5. Reset database: `npm run db:reset`
