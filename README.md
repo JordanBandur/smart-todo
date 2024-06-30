@@ -1,7 +1,7 @@
 Smart ToDo User's Guide
 =========
 ## Description
-A smart, auto-categorizing todo list app. The user simply has to add the name of the thing, and it gets put into the correct list. 
+A smart, auto-categorizing todo list app. The user simply adds the name of the task, and it automatically get sorted into the correct list. 
 ## Tech Stack
 
 ### **Front End**
