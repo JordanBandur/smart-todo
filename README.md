@@ -1,7 +1,7 @@
 Smart ToDo User's Guide
 =========
 ## Description
-A smart, auto-categorizing todo list app. The user simply adds the name of the task, and it automatically get sorted into the correct list. 
+A smart, auto-categorizing to-do list app. Users simply add a task's name, and the app automatically sorts it into the appropriate list. The advanced sorting functionality is powered by Google Gemini, ensuring accurate and efficient organization of tasks.
 ## Tech Stack
 
 ### **Front End**
